@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import KandyKorner from "";
-import "./index.css";
+import NavBar from "./NavBar/NavBar";
+import ApplicationViews from "./ApplicationViews"
 
 ReactDOM.render(
 	<Router>
-		<KandyKorner />
+		<NavBar/>
+		<ApplicationViews />
 	</Router>,
 	document.getElementById("root")
 );
