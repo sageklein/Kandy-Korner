@@ -1,12 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import EmployeeCard from "./EmployeeCard";
+import APIManager from "../modules/APIManager";
 
-function EmployeeCard(props) {
+const EmployeeList = () => {
+	const [employees, setEmployees] = useState([]);
+
+	const getEmployees = () => {
+		return APIManager.getAllUsers().then((employeesFromAPI) => {
+			setEmployees(employeesFromAPI);
+		});
+	};
+	const deleteEmployee = (id) => {
+		APIManager.delete(id).then(() =>
+			APIManager.getAllUsers().then(setEmployees)
+		);
+	};
+
+	useEffect(() => {
+		getEmployees();
+	}, []);
+
 	return (
-		<div className="EmployeeCard">
-			<h2>Employee Name: Employee Address:</h2>
-			<button>details</button>
+		<div className="employeeCardWrapper">
+			{employees.map((employee) => (
+				<EmployeeCard
+					key={employee.id}
+					employee={employee}
+					deleteEmployee={deleteEmployee}
+				/>
+			))}
 		</div>
 	);
-}
+};
 
-export default EmployeeCard;
+export default EmployeeList;

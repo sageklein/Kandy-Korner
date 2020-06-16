@@ -1,35 +1,73 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { withRouter, NavLink } from "react-router-dom";
 
-class NavBar extends Component {
-	render() {
-		return (
-			<nav className="navBarWrapper">
-				<ul className="navBar">
-					<li className="navItem">
-						<Link className="navLink" to="/">
-							Home
-						</Link>
-					</li>
-					<li className="navItem">
-						<Link className="navLink" to="/locations">
-							Locations
-						</Link>
-					</li>
-					<li className="navItem">
-						<Link className="navLink" to="/products">
-							Products
-						</Link>
-					</li>
-					{/* <li className="navItem">
-						<Link className="navLink" to="">
+const Navbar = (props) => {
+	const handleLogout = () => {
+		sessionStorage.clear();
+		props.setIsAuthenticated(false);
+	};
 
-						</Link>
-					</li> */}
-				</ul>
+	return (
+		<>
+			<nav>
+				<span className="logo">Kandy Korner</span>
+				<div>
+					{!props.isAuthenticated && (
+						<>
+							<NavLink
+								to="/login"
+								className="navlink"
+								activeClassName="activeLink"
+							>
+								Login
+							</NavLink>
+							<NavLink
+								to="/register"
+								className="navlink"
+								activeClassName="activeLink"
+							>
+								Register
+							</NavLink>
+						</>
+					)}
+					{props.isAuthenticated && (
+						<>
+							<NavLink
+								to="/products"
+								className="navlink"
+								activeClassName="activeLink"
+							>
+								Candy
+							</NavLink>
+							<NavLink
+								to="/employees"
+								className="navlink"
+								activeClassName="activeLink"
+							>
+								Employees
+							</NavLink>
+							<NavLink
+								to="/locations"
+								className="navlink"
+								activeClassName="activeLink"
+							>
+								Locations
+							</NavLink>
+							<NavLink
+								to="/login"
+								className="navlink logout"
+								activeClassName="activeLink"
+								onClick={handleLogout}
+							>
+								Logout
+							</NavLink>
+						</>
+					)}
+				</div>
 			</nav>
-		);
-	}
-}
+			<div className="nav-colorband"></div>
+		</>
+	);
+};
 
-export default NavBar;
+export default withRouter(Navbar);
