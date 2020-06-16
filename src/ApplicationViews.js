@@ -4,15 +4,41 @@ import ProductList from "./Product/ProductList";
 import ProductForm from "./Product/ProductForm";
 import ProductDetails from "./Product/ProductDetails";
 import EmployeeList from "./Employee/EmployeeList";
+import EmployeeDetails from "./Employee/EmployeeDetails"
 import LocationList from "./Location/LocationList";
-import Login from "./Login/Login";
+import Register from "./Login/Register"
+import Login from "./Login/Login"
 
-const ApplicationViews = () => {
-	const isAuthenticated = () =>
-		sessionStorage.getItem("credentials") !== null;
+
+const ApplicationViews = (props) => {
+	const setIsAuthenticated = props.setIsAuthenticated;
+	const isAuthenticated = props.isAuthenticated;
+	const userIsSupervisor = props.userIsSupervisor;
+
 	return (
-		<React.Fragment>
-			<Route path="/login" component={Login} />
+		<>
+			<Route
+				path="/login"
+				render={(props) => {
+					return (
+						<Login
+							setIsAuthenticated={setIsAuthenticated}
+							{...props}
+						/>
+					);
+				}}
+			/>
+			<Route
+				path="/register"
+				render={(props) => {
+					return (
+						<Register
+							setIsAuthenticated={setIsAuthenticated}
+							{...props}
+						/>
+					);
+				}}
+			/>
 
 			<Route
 				exact
@@ -45,24 +71,28 @@ const ApplicationViews = () => {
 			<Route
 				exact
 				path="/employees"
-				render={(props) => {
-					if (isAuthenticated()) {
-						return <EmployeeList />;
-					} else {
-						return <Redirect to="/login" />;
-					}
-				}}
+				render={(props) =>
+					isAuthenticated ? (
+						<EmployeeList {...props} />
+					) : (
+						props.history.push("/login")
+					)
+				}
 			/>
-			{/* <Route
+			<Route
 				path="/employees/:employeeId(\d+)"
-				render={(props) => {
-					return (
+				render={(props) =>
+					isAuthenticated ? (
 						<EmployeeDetails
+							userIsSupervisor={userIsSupervisor}
 							employeeId={parseInt(props.match.params.employeeId)}
+							{...props}
 						/>
-					);
-				}}
-			/> */}
+					) : (
+						props.history.push("/login")
+					)
+				}
+			/>
 
 			<Route
 				exact
@@ -75,7 +105,7 @@ const ApplicationViews = () => {
 					}
 				}}
 			/>
-		</React.Fragment>
+		</>
 	);
 };
 
