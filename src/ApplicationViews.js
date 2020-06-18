@@ -1,6 +1,6 @@
 import { Route, Redirect } from "react-router-dom";
 import React from "react";
-import ProductList from "./Product/ProductList";
+import Product from "./Product/Product";
 import ProductForm from "./Product/ProductForm";
 import ProductDetails from "./Product/ProductDetails";
 import EmployeeList from "./Employee/EmployeeList";
@@ -45,7 +45,7 @@ const ApplicationViews = (props) => {
 				path="/products"
 				render={(props) => {
 					if (isAuthenticated()) {
-						return <ProductList {...props} />;
+						return <Product {...props} />;
 					} else {
 						return <Redirect to="/login" />;
 					}

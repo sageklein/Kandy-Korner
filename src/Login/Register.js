@@ -36,7 +36,7 @@ const Register = (props) => {
 		) {
 			alert("Please complete all fields");
 		} else {
-			APIManager.findUserByEmail(credentials.email).then((res) => {
+			APIManager.userByEmail(credentials.email).then((res) => {
 				if (res.length === 0) {
 					APIManager.postResource("employees", credentials).then(
 						(emp) => {
@@ -47,7 +47,7 @@ const Register = (props) => {
 					);
 				} else {
 					alert(
-						"A user with that email already exists. Please log in or use another email"
+						"A user with that email already exists"
 					);
 				}
 			});

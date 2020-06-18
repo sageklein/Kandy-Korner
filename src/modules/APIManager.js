@@ -1,4 +1,4 @@
-const remoteURL = "http://localhost:5002";
+const remoteURL = "http://localhost:3000";
 
 export default {
 	get(id) {
@@ -21,6 +21,17 @@ export default {
 			body: JSON.stringify(newProduct),
 		}).then((data) => data.json());
 	},
+	getResource(resource) {
+		return fetch(`${remoteURL}${resource}`).then((res) => res.json());
+	},
+	getResourceById(resource, id) {
+		return fetch(`${remoteURL}${resource}/${id}`).then((res) => res.json());
+	},
+	getResourceByIdWithExpand(resource, id, related) {
+		return fetch(
+			`${remoteURL}${resource}/${id}?_expand=${related}`
+		).then((res) => res.json());
+	},
 	getUserData(id) {
 		return fetch(`${remoteURL}/employees/${id}`).then((result) =>
 			result.json()
@@ -38,5 +49,28 @@ export default {
 		return fetch(`${remoteURL}employees?email=${email}`).then((res) =>
 			res.json()
 		);
+	},
+	getProductLocations(productId) {
+		return fetch(
+			`${remoteURL}productLocations?productId=${productId}&_expand=location`
+		).then((res) => res.json());
+	},
+	postResource(resource, newItem) {
+		return fetch(`${remoteURL}${resource}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(newItem),
+		}).then((data) => data.json());
+	},
+	updateResource(resource, newItem) {
+		return fetch(`${remoteURL}${resource}/${newItem.id}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(newItem),
+		}).then((data) => data.json());
 	},
 };

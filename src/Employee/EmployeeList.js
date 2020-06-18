@@ -21,7 +21,7 @@ const EmployeeList = () => {
 	}, []);
 
 	return (
-		<div className="employeeCardWrapper">
+		<div className="employeeKardWrapper">
 			{employees.map((employee) => (
 				<EmployeeCard
 					key={employee.id}

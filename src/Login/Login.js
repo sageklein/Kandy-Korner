@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import APIManager from "../ApplicationViews"
+import APIManager from "../modules/APIManager"
 
 const Login = (props) => {
 	const [credentials, setCredentials] = useState({
@@ -13,13 +13,13 @@ const Login = (props) => {
 		setCredentials(stateToChange);
 	};
 
-  const handleLogin = () => {
-		const user = credentials.username;
-		const pass = credentials.password;
-		if (user === "" || pass === "") {
+	const handleLogin = () => {
+		const username = credentials.username;
+		const password = credentials.password;
+		if (username === "" || password === "") {
 			alert("Please enter Name and Password");
 		} else {
-			APIManager.userByUsernameAndPassword(user, pass).then((res) => {
+			APIManager.userByUsernameAndPassword(username, password).then((res) => {
 				if (res.length > 0) {
 					sessionStorage.setItem("userId", res[0].id);
 					props.setIsAuthenticated(true);
@@ -29,34 +29,34 @@ const Login = (props) => {
 				}
 			});
 		}
-  };
+	};
 	return (
-		<form onSubmit={handleLogin}>
-			<fieldset>
-				<h3>Sign In</h3>
-				<div className="loginForm">
-					<label htmlFor="inputUsername">Username: </label>
-					<input
-						onChange={handleFieldChange}
-						type="username"
-						id="username"
-						placeholder="Username"
-						required=""
-						autoFocus=""
-					/>
-
-					<label htmlFor="inputPassword"> Password: </label>
-					<input
-						onChange={handleFieldChange}
-						type="password"
-						id="password"
-						placeholder="Password"
-						required=""
-					/>
-				</div>
-				<button className="loginButton" type="submit">Sign In</button>
-			</fieldset>
-		</form>
+		<>
+			<div className="center">
+				<h1>Log In</h1>
+				<form>
+					<fieldset>
+						<label htmlFor="username">username</label>
+						<input
+							id="username"
+							name="username"
+							type="text"
+							onChange={handleFieldChange}
+						/>
+					</fieldset>
+					<fieldset>
+						<label htmlFor="password">password</label>
+						<input
+							id="password"
+							name="password"
+							type="password"
+							onChange={handleFieldChange}
+						/>
+					</fieldset>
+				</form>
+				<button onClick={handleLogin}>Log In</button>
+			</div>
+		</>
 	);
 };
 
