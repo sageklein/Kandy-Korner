@@ -7,7 +7,7 @@ function Product(props) {
 	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
-		APIManager.get("products").then((result) =>
+		APIManager.getAllProducts().then((result) =>
 			setProducts(result)
 		);
 	}, []);

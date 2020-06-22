@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import APIManager from "../modules/APIManager"
 
+
 const Login = (props) => {
 	const [credentials, setCredentials] = useState({
 		username: "",
@@ -8,16 +9,16 @@ const Login = (props) => {
 	});
 
 	const handleFieldChange = (evt) => {
-		const stateToChange = { ...credentials };
-		stateToChange[evt.target.id] = evt.target.value;
-		setCredentials(stateToChange);
+		const credentialsToChange = { ...credentials };
+		credentialsToChange[evt.target.id] = evt.target.value;
+		setCredentials(credentialsToChange);
 	};
 
 	const handleLogin = () => {
 		const username = credentials.username;
 		const password = credentials.password;
 		if (username === "" || password === "") {
-			alert("Please enter Name and Password");
+			alert("Please complete both login fields");
 		} else {
 			APIManager.userByUsernameAndPassword(username, password).then((res) => {
 				if (res.length > 0) {
@@ -25,7 +26,7 @@ const Login = (props) => {
 					props.setIsAuthenticated(true);
 					props.history.push("/products");
 				} else {
-					alert("Please try again");
+					alert("There was a problem logging in. Please try again");
 				}
 			});
 		}
@@ -33,7 +34,7 @@ const Login = (props) => {
 	return (
 		<>
 			<div className="center">
-				<h1>Log In</h1>
+				<h1>Log In </h1>
 				<form>
 					<fieldset>
 						<label htmlFor="username">username</label>

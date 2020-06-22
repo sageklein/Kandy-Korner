@@ -1,10 +1,13 @@
 import React from "react";
 
 function LocationCard(props) {
+	const location = props.Location;
+
 	return (
-		<div className="LocationCard">
-			<h2>Address:</h2>
-			<button>details</button>
+		<div className="card vert">
+			<h2>{location.name}</h2>
+			<h3>{location.address}</h3>
+			<h3>{location.phone}</h3>
 		</div>
 	);
 }

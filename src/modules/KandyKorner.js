@@ -49,7 +49,7 @@ function KandyKorner() {
 				clearUserData();
 				return;
 			}
-			return APIManager.getResourceById("resource", userId).then(
+			return APIManager.getResourceById("employees", userId).then(
 				(user) => {
 					setUser(user);
 					return user;
@@ -73,5 +73,4 @@ function KandyKorner() {
 		</>
 	);
 }
-
 export default KandyKorner;
