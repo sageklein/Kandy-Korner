@@ -27,7 +27,6 @@ const Register = (props) => {
 		if (
 			credentials.username === "" ||
 			credentials.password === "" ||
-			credentials.email === "" ||
 			credentials.firstName === "" ||
 			credentials.lastName === "" ||
 			credentials.address === "" ||
@@ -36,7 +35,7 @@ const Register = (props) => {
 		) {
 			alert("Please complete all fields");
 		} else {
-			APIManager.findUserByEmail(credentials.email).then((res) => {
+			APIManager.userByUsername(credentials.username).then((res) => {
 				if (res.length === 0) {
 					APIManager.postResource("employees", credentials).then(
 						(emp) => {
@@ -47,7 +46,7 @@ const Register = (props) => {
 					);
 				} else {
 					alert(
-						"A user with that email already exists. Please log in or use another email"
+						"A user with that email already exists"
 					);
 				}
 			});
@@ -68,15 +67,6 @@ const Register = (props) => {
 						<input
 							id="username"
 							name="username"
-							type="text"
-							onChange={handleInput}
-						/>
-					</fieldset>
-					<fieldset>
-						<label htmlFor="email">email</label>
-						<input
-							id="email"
-							name="email"
 							type="text"
 							onChange={handleInput}
 						/>

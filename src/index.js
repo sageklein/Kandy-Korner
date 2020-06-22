@@ -4,8 +4,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import KandyKorner from "./modules/KandyKorner"
 
 ReactDOM.render(
-	<Router>
-		<KandyKorner />
-	</Router>,
+	<React.StrictMode>
+		<Router>
+			<KandyKorner />
+		</Router>
+	</React.StrictMode>,
 	document.getElementById("root")
 );

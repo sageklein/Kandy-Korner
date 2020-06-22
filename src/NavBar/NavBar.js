@@ -16,14 +16,14 @@ const Navbar = (props) => {
 						<>
 							<NavLink
 								to="/login"
-								className="navlink"
+								className="navlink login"
 								activeClassName="activeLink"
 							>
-								Login
+								Login 
 							</NavLink>
 							<NavLink
 								to="/register"
-								className="navlink"
+								className="navlink register"
 								activeClassName="activeLink"
 							>
 								Register
